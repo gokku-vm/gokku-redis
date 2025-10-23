@@ -22,15 +22,9 @@ fi
 # REDIS_PASSWORD=$(get_service_config "$SERVICE_NAME" | grep -o '"password":"[^"]*"' | cut -d'"' -f4)
 REDIS_PASSWORD=$(get_service_config "$SERVICE_NAME" | jq -r '.password')
 
-# Connect to Redis CLI
-echo "Connecting to Redis CLI..."
-echo "Type 'exit' to quit"
-echo ""
-
 # Check if we have a command to execute
 if [ "$2" = "-c" ] && [ -n "$3" ]; then
     # Execute single command
-    echo "Executing Redis command: $3"
     echo "$3" | docker exec -i "$SERVICE_NAME" redis-cli -a "$REDIS_PASSWORD"
 else
     # Interactive mode - check if we have a TTY
