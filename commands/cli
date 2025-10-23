@@ -27,4 +27,24 @@ echo "Connecting to Redis CLI..."
 echo "Type 'exit' to quit"
 echo ""
 
-docker exec -i "$SERVICE_NAME" redis-cli -a "$REDIS_PASSWORD"
+# Check if we have a command to execute
+if [ "$2" = "-c" ] && [ -n "$3" ]; then
+    # Execute single command
+    echo "Executing Redis command: $3"
+    echo "$3" | docker exec -i "$SERVICE_NAME" redis-cli -a "$REDIS_PASSWORD"
+else
+    # Interactive mode - check if we have a TTY
+    if [ -t 0 ] && [ -t 1 ]; then
+        # We have a TTY, use interactive mode
+        echo "Connecting to Redis CLI..."
+        echo "Type 'exit' to quit"
+        echo ""
+        docker exec -it "$SERVICE_NAME" redis-cli -a "$REDIS_PASSWORD"
+    else
+        # No TTY available, use non-interactive mode
+        echo "Connecting to Redis CLI (non-interactive mode)..."
+        echo "Type 'exit' to quit"
+        echo ""
+        docker exec "$SERVICE_NAME" redis-cli -a "$REDIS_PASSWORD"
+    fi
+fi
