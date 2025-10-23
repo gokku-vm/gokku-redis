@@ -26,4 +26,4 @@ echo "Connecting to Redis CLI..."
 echo "Type 'exit' to quit"
 echo ""
 
-docker exec -i "$SERVICE_NAME" redis-cli -a "$REDIS_PASSWORD"
+docker exec -it "$SERVICE_NAME" redis-cli -a "$REDIS_PASSWORD"
