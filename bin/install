@@ -60,6 +60,7 @@ docker run -d \
   -p "$PORT:6379" \
   -v "$SERVICE_DIR/redis.conf:/usr/local/etc/redis/redis.conf:ro" \
   -v "${SERVICE_NAME}_data:/data" \
+  -it \
   --restart unless-stopped \
   "$REDIS_IMAGE" redis-server /usr/local/etc/redis/redis.conf
 
