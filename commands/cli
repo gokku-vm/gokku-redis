@@ -22,4 +22,4 @@ fi
 # REDIS_PASSWORD=$(get_service_config "$SERVICE_NAME" | grep -o '"password":"[^"]*"' | cut -d'"' -f4)
 REDIS_PASSWORD=$(get_service_config "$SERVICE_NAME" | jq -r '.password')
 
-docker exec -it $SERVICE_NAME redis-cli -a $REDIS_PASSWORD
+docker exec -i $SERVICE_NAME redis-cli -a $REDIS_PASSWORD
