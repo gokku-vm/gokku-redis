@@ -19,7 +19,8 @@ if ! container_is_running "$SERVICE_NAME"; then
 fi
 
 # Get Redis password
-REDIS_PASSWORD=$(get_service_config "$SERVICE_NAME" | grep -o '"password":"[^"]*"' | cut -d'"' -f4)
+# REDIS_PASSWORD=$(get_service_config "$SERVICE_NAME" | grep -o '"password":"[^"]*"' | cut -d'"' -f4)
+REDIS_PASSWORD=$(get_service_config "$SERVICE_NAME" | jq -r '.password')
 
 # Connect to Redis CLI
 echo "Connecting to Redis CLI..."
